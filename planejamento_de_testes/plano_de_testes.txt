@@ -1,0 +1,49 @@
+Funcionalidade: Compra de Produto no Site Casas Bahia
+
+  Como um cliente interessado em comprar produtos na Casas Bahia
+  Eu quero poder comprar produtos com sucesso no site
+  Para que eu possa receber os produtos desejados de forma eficiente
+
+  Pré-condições:
+    Ter pelo menos um usuário registrado e logado
+    Ter pelo menos um produto cadastrado e com estoque disponível
+    Ter pelo menos um produto cadastrado e com estoque indisponível
+
+  Cenário: Compra de Produto Disponível com Sucesso
+    [Documentation]    Esse teste verifica a compra de um produto com sucesso
+    [Tags]             busca_produtos    compra_sucesso 
+    Dado que estou na página inicial do site casasbahia.com.br
+    Quando eu pesquiso por um produto e o adiciono ao carrinho
+    | Produto              |
+    | Apple iPhone 15 Pro Max 1 TB -Titânio Azul  |
+    E eu seleciono o endereço de entrega "<Endereco>" com frete "<Frete>" e serviço de entrega "<Servico>"
+    E eu escolho a forma de pagamento "<Pagamento>" e adiciono o cupom "<Cupom>"
+    Então eu devo ver o status de confirmação de pagamento como "<Status>"
+
+  Exemplos:
+    | Pagamento             | Endereco  | Cupom | Status | Frete    | Servico |
+    | PIX                   | Principal | não   | é      | Normal   | Sim     |
+    | Cartão de Crédito     | Principal | não   | não é  | Agendada | Não     |
+    | 2 Cartões de Crédito  | Principal | não   | não é  | Normal   | Não     |
+
+  Resultados Esperados:
+    O produto é adicionado com sucesso ao carrinho.
+    O processo de checkout é concluído sem erros.
+    A compra é confirmada e um número de pedido é gerado.
+
+  Cenário: Produto Indisponível para Compra
+    [Documentation]    Esse teste verifica a compra de um produto com status indisponível
+    [Tags]             busca_produtos    compra_produto_indisponivel
+    Dado que estou na página inicial do site casasbahia.com.br
+    Quando eu pesquiso por um produto indisponível para compra
+    Então eu devo ver uma mensagem indicando que o produto está indisponível
+    E eu sou encorajado a procurar por produtos alternativos
+
+  Resultados Esperados:
+    Uma mensagem indicando que o produto está indisponível é exibida.
+    O usuário é informado sobre a falta de disponibilidade do produto e é encorajado a procurar produtos alternativos.
+    
+  Pós-condições:
+    O sistema retorna ao estado inicial ou à página inicial do site após a conclusão dos testes.
+
+
